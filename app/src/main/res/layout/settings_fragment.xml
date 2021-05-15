@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settings_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/settings_charge_level_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/settings_charge_level_title"
+        android:textSize="20sp" />
+
+    <include
+        android:id="@+id/settings_charge_level_spinner_layout"
+        layout="@layout/layout_progress" />
+
+    <TextView
+        android:id="@+id/settings_model_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/settings_model_title"
+        android:textSize="20sp" />
+
+</LinearLayout>

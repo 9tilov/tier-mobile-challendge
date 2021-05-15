@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Tier Test App</string>
+    <string name="settings_charge_level_title">Charge level</string>
+    <string name="settings_model_title">Models</string>
+    <string name="booking_model">Model:</string>
+    <string name="booking_model_charge_level">Charge level:</string>
+    <string name="booking_apply">Book</string>
+    <string name="booking_message">Vehicle was booked!</string>
+
+</resources>

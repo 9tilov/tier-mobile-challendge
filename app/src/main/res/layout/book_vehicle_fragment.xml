@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".map.ui.BookVehicleFragment">
+
+    <ImageView
+        android:id="@+id/booking_model_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_baseline_directions_car_24" />
+
+    <TextView
+        android:id="@+id/booking_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/booking_model"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/booking_model_image"
+        app:layout_constraintTop_toBottomOf="@+id/booking_model_image" />
+
+    <TextView
+        android:id="@+id/booking_model_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/booking_model"
+        app:layout_constraintStart_toEndOf="@+id/booking_model"
+        tools:text="Car" />
+
+    <TextView
+        android:id="@+id/booking_model_charge_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/booking_model_charge_level"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/booking_model_image"
+        app:layout_constraintTop_toBottomOf="@+id/booking_model" />
+
+    <TextView
+        android:id="@+id/booking_model_charge_level_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/booking_model_charge_level"
+        app:layout_constraintStart_toEndOf="@+id/booking_model_charge_level"
+        tools:text="12%" />
+
+    <TextView
+        android:id="@+id/booking_apply"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="32dp"
+        android:background="@drawable/button_background"
+        android:gravity="center"
+        android:text="@string/booking_apply"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/booking_model_charge_level" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/booking_apply" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
