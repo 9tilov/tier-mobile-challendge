@@ -1,3 +1,3 @@
 # tier-mobile-challendge
 
-Mobile app with Hilt, Retrofir, MVVM, Googla Map Api, Room, Kotlin.
+Mobile app with Hilt, Retrofit, MVVM, Googla Map Api, Room, Kotlin.
