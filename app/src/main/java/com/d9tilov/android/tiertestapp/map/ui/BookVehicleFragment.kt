@@ -12,11 +12,22 @@ import androidx.fragment.app.viewModels
 import com.d9tilov.android.tiertestapp.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BookVehicleFragment : BottomSheetDialogFragment() {
 
-    private val viewModel by viewModels<BookVehicleViewModel>()
+    @Inject
+    lateinit var bookVehicleViewModelFactory: BookVehicleViewModel.BookVehicleViewModelFactory
+
+    private val viewModel by viewModels<BookVehicleViewModel> {
+        BookVehicleViewModel.provideFactory(
+            bookVehicleViewModelFactory,
+            this,
+            arguments
+        )
+    }
+
     private val icon: ImageView by lazy { requireView().findViewById(R.id.booking_model_image) }
     private val applyBtn: TextView by lazy { requireView().findViewById(R.id.booking_apply) }
     private val modelTitle: TextView by lazy { requireView().findViewById(R.id.booking_model_value) }

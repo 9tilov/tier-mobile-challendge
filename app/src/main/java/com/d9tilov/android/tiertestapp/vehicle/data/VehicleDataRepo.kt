@@ -46,7 +46,7 @@ class VehicleDataRepo(
         vehicleSource.insertAll(vehicles)
     }
 
-    override suspend fun getAllModels(): Flow<List<VehicleModel>> {
+    override fun getAllModels(): Flow<List<VehicleModel>> {
         val models = mutableSetOf<VehicleModel>()
         return if (inMemoryModel.cachedList.isEmpty()) {
             vehicleSource.getAll().map {

@@ -8,29 +8,35 @@ import com.d9tilov.android.tiertestapp.settings.data.local.mapper.SettingsDataMa
 import com.d9tilov.android.tiertestapp.settings.domain.SettingsInteractor
 import com.d9tilov.android.tiertestapp.settings.domain.SettingsInteractorImpl
 import com.d9tilov.android.tiertestapp.settings.domain.SettingsRepo
+import com.d9tilov.android.tiertestapp.vehicle.domain.VehicleInteractor
+import com.d9tilov.android.tiertestapp.vehicle.domain.VehicleRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 class SettingsModule {
 
     @Provides
+    @ActivityRetainedScoped
     fun provideSettingsSource(
         appDatabase: AppDatabase,
         settingsDataMapper: SettingsDataMapper
     ): SettingsSource = SettingsLocalSource(appDatabase, settingsDataMapper)
 
     @Provides
+    @ActivityRetainedScoped
     fun provideSettingsRepo(
-        settingsSource: SettingsSource,
-        mapper: SettingsDataMapper
+        settingsSource: SettingsSource
     ): SettingsRepo = SettingsDataRepo(settingsSource)
 
     @Provides
+    @ActivityRetainedScoped
     fun provideSettingsInteractor(
         settingsRepo: SettingsRepo,
-    ): SettingsInteractor = SettingsInteractorImpl(settingsRepo)
+        vehicleRepo: VehicleRepo
+    ): SettingsInteractor = SettingsInteractorImpl(vehicleRepo, settingsRepo)
 }

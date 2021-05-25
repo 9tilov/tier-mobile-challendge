@@ -1,5 +1,6 @@
 package com.d9tilov.android.tiertestapp.vehicle.domain
 
+import android.util.Log
 import com.d9tilov.android.tiertestapp.settings.domain.SettingsInteractor
 import com.d9tilov.android.tiertestapp.vehicle.data.entity.Vehicle
 import com.d9tilov.android.tiertestapp.vehicle.data.entity.VehicleModel
@@ -17,6 +18,7 @@ class VehicleInteractorImpl(
         return vehicleRepo.getAll().flatMapConcat { list ->
             settingsInteractor.getSettings()
                 .map { settings ->
+                    Log.d("moggot", "getAll: $settings")
                     val filterModelSet = settings.models.toSet()
                     list.filter { it.battery >= settings.chargeLevel }
                         .filter { filterModelSet.contains(it.model) }
@@ -27,7 +29,7 @@ class VehicleInteractorImpl(
 
     override suspend fun getById(id: Long): Vehicle = vehicleRepo.getById(id)
 
-    override suspend fun getAllModels(): Flow<List<VehicleModel>> = vehicleRepo.getAllModels()
+    override fun getAllModels(): Flow<List<VehicleModel>> = vehicleRepo.getAllModels()
 
     override suspend fun insertAll(vehicles: List<Vehicle>) {
         vehicleRepo.insertAll(vehicles)

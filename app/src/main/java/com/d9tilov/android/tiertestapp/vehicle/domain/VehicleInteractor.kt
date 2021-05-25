@@ -8,6 +8,6 @@ interface VehicleInteractor {
 
     fun getAll(): Flow<List<Vehicle>>
     suspend fun getById(id: Long): Vehicle
-    suspend fun getAllModels(): Flow<List<VehicleModel>>
+    fun getAllModels(): Flow<List<VehicleModel>>
     suspend fun insertAll(vehicles: List<Vehicle>)
 }

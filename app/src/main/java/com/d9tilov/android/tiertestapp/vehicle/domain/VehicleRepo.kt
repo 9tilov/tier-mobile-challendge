@@ -9,5 +9,5 @@ interface VehicleRepo {
     fun getAll(): Flow<List<Vehicle>>
     suspend fun getById(id: Long): Vehicle
     suspend fun insertAll(vehicles: List<Vehicle>)
-    suspend fun getAllModels(): Flow<List<VehicleModel>>
+    fun getAllModels(): Flow<List<VehicleModel>>
 }

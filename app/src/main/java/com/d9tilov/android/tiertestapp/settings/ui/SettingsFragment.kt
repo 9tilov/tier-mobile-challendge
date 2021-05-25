@@ -37,7 +37,7 @@ class SettingsFragment : BottomSheetDialogFragment(), CompoundButton.OnCheckedCh
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.models().observe(this.viewLifecycleOwner, {
+        viewModel.modelsData.observe(this.viewLifecycleOwner, {
             if (areSettingsCreated) {
                 return@observe
             }
@@ -56,7 +56,7 @@ class SettingsFragment : BottomSheetDialogFragment(), CompoundButton.OnCheckedCh
             }
             areSettingsCreated = true
         })
-        viewModel.settings().observe(this.viewLifecycleOwner, {
+        viewModel.settingsData.observe(this.viewLifecycleOwner, {
             seekBar.progress = it.chargeLevel
             seekBarProgress.text =
                 getString(R.string.settings_progress_value, it.chargeLevel.toString())
@@ -64,7 +64,6 @@ class SettingsFragment : BottomSheetDialogFragment(), CompoundButton.OnCheckedCh
                 val checkBox: CheckBox? = parentLayout.findViewWithTag(model)
                 checkBox?.isChecked = true
             }
-
         })
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
