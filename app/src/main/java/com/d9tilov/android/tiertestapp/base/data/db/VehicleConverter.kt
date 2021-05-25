@@ -2,21 +2,23 @@ package com.d9tilov.android.tiertestapp.base.data.db
 
 import androidx.room.TypeConverter
 import com.d9tilov.android.tiertestapp.vehicle.data.entity.VehicleModel
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import java.util.Collections
 
 object VehicleConverter {
 
+    private val moshi = Moshi.Builder().build()
+    private val membersType = Types.newParameterizedType(List::class.java, VehicleModel::class.java)
+    private val membersAdapter = moshi.adapter<List<VehicleModel>>(membersType)
+
     @TypeConverter
-    @JvmStatic
-    fun fromModelListToString(list: List<VehicleModel>): String {
-        return Gson().toJson(list).toString()
+    fun fromJson(str: String): List<VehicleModel> {
+        return membersAdapter.fromJson(str) ?: Collections.emptyList()
     }
 
     @TypeConverter
-    @JvmStatic
-    fun fromStringToModelList(value: String): List<VehicleModel> {
-        val turnsType = object : TypeToken<List<VehicleModel>>() {}.type
-        return Gson().fromJson<List<VehicleModel>>(value, turnsType)
+    fun toJson(list: List<VehicleModel>): String {
+        return membersAdapter.toJson(list)
     }
 }

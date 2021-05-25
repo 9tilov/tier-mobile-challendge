@@ -3,7 +3,6 @@ package com.d9tilov.android.tiertestapp.di
 import android.util.Log
 import com.d9tilov.android.tiertestapp.App
 import com.d9tilov.android.tiertestapp.BuildConfig
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,8 +11,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -51,19 +49,9 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGson(): Gson = Gson()
-
-    @Provides
-    @Singleton
-    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory =
-        GsonConverterFactory.create(gson)
-
-    @Provides
-    @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(MoshiConverterFactory.create())
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .build()

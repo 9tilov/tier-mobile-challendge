@@ -4,11 +4,9 @@ import com.d9tilov.android.tiertestapp.base.data.db.AppDatabase
 import com.d9tilov.android.tiertestapp.settings.data.SettingsDataRepo
 import com.d9tilov.android.tiertestapp.settings.data.local.SettingsLocalSource
 import com.d9tilov.android.tiertestapp.settings.data.local.SettingsSource
-import com.d9tilov.android.tiertestapp.settings.data.local.mapper.SettingsDataMapper
 import com.d9tilov.android.tiertestapp.settings.domain.SettingsInteractor
 import com.d9tilov.android.tiertestapp.settings.domain.SettingsInteractorImpl
 import com.d9tilov.android.tiertestapp.settings.domain.SettingsRepo
-import com.d9tilov.android.tiertestapp.vehicle.domain.VehicleInteractor
 import com.d9tilov.android.tiertestapp.vehicle.domain.VehicleRepo
 import dagger.Module
 import dagger.Provides
@@ -23,9 +21,8 @@ class SettingsModule {
     @Provides
     @ActivityRetainedScoped
     fun provideSettingsSource(
-        appDatabase: AppDatabase,
-        settingsDataMapper: SettingsDataMapper
-    ): SettingsSource = SettingsLocalSource(appDatabase, settingsDataMapper)
+        appDatabase: AppDatabase
+    ): SettingsSource = SettingsLocalSource(appDatabase.settingsDao())
 
     @Provides
     @ActivityRetainedScoped

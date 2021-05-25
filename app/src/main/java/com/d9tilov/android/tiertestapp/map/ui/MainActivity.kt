@@ -42,11 +42,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         map.setOnMarkerClickListener(this)
-        viewModel.vehicles().observe(this, { result ->
+        viewModel.vehicleList.observe(this, { result ->
             result.data?.let {
-                if (it.isEmpty()) {
-                    return@observe
-                }
                 map.clear()
                 val latLngBuilder = LatLngBounds.Builder()
                 for (item in it) {
@@ -61,7 +58,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                     marker?.run { tag = item.id }
                     latLngBuilder.include(latlng)
                 }
-                if (!isZoomSetUp) {
+                if (!it.isEmpty() && !isZoomSetUp) {
                     val size = resources.displayMetrics.widthPixels
                     val latLngBounds = latLngBuilder.build()
                     val track = CameraUpdateFactory.newLatLngBounds(latLngBounds, size, size, 25)

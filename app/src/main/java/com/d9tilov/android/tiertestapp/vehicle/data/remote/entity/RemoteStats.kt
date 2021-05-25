@@ -1,16 +1,12 @@
 package com.d9tilov.android.tiertestapp.vehicle.data.remote.entity
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class RemoteStats(
-    @SerializedName("open")
-    @Expose
+    @field:Json(name = "open")
     val open: Int?,
-    @SerializedName("assigned")
-    @Expose
+    @field:Json(name="assigned")
     val assigned: Int?,
-    @SerializedName("resolved")
-    @Expose
+    @field:Json(name="resolved")
     val resolved: Int?
 )

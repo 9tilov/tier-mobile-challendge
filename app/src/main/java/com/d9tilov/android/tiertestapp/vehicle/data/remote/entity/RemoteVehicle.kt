@@ -1,46 +1,32 @@
 package com.d9tilov.android.tiertestapp.vehicle.data.remote.entity
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class RemoteVehicle(
-    @SerializedName("id")
-    @Expose
+    @field:Json(name = "id")
     val id: String,
-    @SerializedName("vehicleId")
-    @Expose
+    @field:Json(name = "vehicleId")
     val vehicleId: String,
-    @SerializedName("hardwareId")
-    @Expose
+    @field:Json(name = "hardwareId")
     val hardwareId: String,
-    @SerializedName("zoneId")
-    @Expose
+    @field:Json(name = "zoneId")
     val zoneId: String,
-    @SerializedName("resolution")
-    @Expose
+    @field:Json(name = "resolution")
     val resolution: String,
-    @SerializedName("resolvedBy")
-    @Expose
+    @field:Json(name = "resolvedBy")
     val resolvedBy: String,
-    @SerializedName("resolvedAt")
-    @Expose
+    @field:Json(name = "resolvedAt")
     val resolvedAt: String,
-    @SerializedName("battery")
-    @Expose
+    @field:Json(name = "battery")
     val battery: Int,
-    @SerializedName("state")
-    @Expose
+    @field:Json(name = "state")
     val state: String,
-    @SerializedName("model")
-    @Expose
+    @field:Json(name = "model")
     val model: String,
-    @SerializedName("fleetbirdId")
-    @Expose
+    @field:Json(name = "fleetbirdId")
     val fleetbirdId: Int,
-    @SerializedName("latitude")
-    @Expose
+    @field:Json(name = "latitude")
     val latitude: Double,
-    @SerializedName("longitude")
-    @Expose
+    @field:Json(name = "longitude")
     val longitude: Double
 )

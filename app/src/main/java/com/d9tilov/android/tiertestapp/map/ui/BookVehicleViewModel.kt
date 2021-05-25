@@ -15,6 +15,7 @@ import com.d9tilov.android.tiertestapp.vehicle.domain.VehicleInteractor
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BookVehicleViewModel @AssistedInject constructor(
@@ -26,9 +27,9 @@ class BookVehicleViewModel @AssistedInject constructor(
 
     init {
         val id = savedStateHandle.get<Long>(BookVehicleFragment.EXTRA_VEHICLE_ID)
-        id?.run {
-            viewModelScope.launch {
-                vehicle.value = vehicleInteractor.getById(id)
+        if (id != null) {
+            viewModelScope.launch(Dispatchers.IO) {
+                vehicle.postValue(vehicleInteractor.getById(id))
             }
         }
     }

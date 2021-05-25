@@ -1,8 +1,7 @@
 package com.d9tilov.android.tiertestapp.vehicle.ui
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.asLiveData
 import com.d9tilov.android.tiertestapp.base.ui.BaseViewModel
 import com.d9tilov.android.tiertestapp.base.ui.MapNavigator
 import com.d9tilov.android.tiertestapp.base.ui.wrapper.ResultData
@@ -10,24 +9,18 @@ import com.d9tilov.android.tiertestapp.vehicle.data.entity.Vehicle
 import com.d9tilov.android.tiertestapp.vehicle.domain.VehicleInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
 class VehicleViewModel @Inject constructor(vehicleInteractor: VehicleInteractor) :
     BaseViewModel<MapNavigator>() {
 
-    private val vehicleList = MutableLiveData<ResultData<List<Vehicle>>>()
-
-    init {
-        viewModelScope.launch {
-            vehicleInteractor.getAll()
-                .catch {
-                    vehicleList.postValue(ResultData.error(it.toString()))
-                }.collect { vehicleList.value = ResultData.success(it) }
-        }
-    }
+    val vehicleList: LiveData<ResultData<List<Vehicle>>> =
+        vehicleInteractor.getAll()
+            .map { ResultData.success(it) }
+            .catch { emit(ResultData.error(it.toString())) }
+            .asLiveData()
 
     fun goToSettings() {
         navigator?.openSettings()
@@ -36,6 +29,4 @@ class VehicleViewModel @Inject constructor(vehicleInteractor: VehicleInteractor)
     fun openBookMenu(vehicleId: Long) {
         navigator?.openBookMenu(vehicleId)
     }
-
-    fun vehicles(): LiveData<ResultData<List<Vehicle>>> = vehicleList
 }

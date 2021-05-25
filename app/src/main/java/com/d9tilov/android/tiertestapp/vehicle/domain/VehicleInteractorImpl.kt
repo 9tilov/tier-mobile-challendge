@@ -1,6 +1,5 @@
 package com.d9tilov.android.tiertestapp.vehicle.domain
 
-import android.util.Log
 import com.d9tilov.android.tiertestapp.settings.domain.SettingsInteractor
 import com.d9tilov.android.tiertestapp.vehicle.data.entity.Vehicle
 import com.d9tilov.android.tiertestapp.vehicle.data.entity.VehicleModel
@@ -18,7 +17,6 @@ class VehicleInteractorImpl(
         return vehicleRepo.getAll().flatMapConcat { list ->
             settingsInteractor.getSettings()
                 .map { settings ->
-                    Log.d("moggot", "getAll: $settings")
                     val filterModelSet = settings.models.toSet()
                     list.filter { it.battery >= settings.chargeLevel }
                         .filter { filterModelSet.contains(it.model) }

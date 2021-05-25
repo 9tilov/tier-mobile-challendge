@@ -7,8 +7,7 @@ import com.d9tilov.android.tiertestapp.vehicle.data.InMemoryModel
 import com.d9tilov.android.tiertestapp.vehicle.data.VehicleDataRepo
 import com.d9tilov.android.tiertestapp.vehicle.data.local.VehicleLocalSource
 import com.d9tilov.android.tiertestapp.vehicle.data.local.VehicleSource
-import com.d9tilov.android.tiertestapp.vehicle.data.local.mapper.VehicleDataMapper
-import com.d9tilov.android.tiertestapp.vehicle.data.remote.mapper.VehicleRemoteMapper
+import com.d9tilov.android.tiertestapp.vehicle.data.remote.VehicleApi
 import com.d9tilov.android.tiertestapp.vehicle.domain.VehicleInteractor
 import com.d9tilov.android.tiertestapp.vehicle.domain.VehicleInteractorImpl
 import com.d9tilov.android.tiertestapp.vehicle.domain.VehicleRepo
@@ -26,10 +25,9 @@ class MapModule {
     @Provides
     @ActivityRetainedScoped
     fun provideVehicleSource(
-        appDatabase: AppDatabase,
-        dataMapper: VehicleDataMapper
+        appDatabase: AppDatabase
     ): VehicleSource =
-        VehicleLocalSource(appDatabase, dataMapper)
+        VehicleLocalSource(appDatabase.vehicleDao())
 
     @Provides
     @ActivityRetainedScoped
@@ -41,11 +39,10 @@ class MapModule {
     @ActivityRetainedScoped
     fun provideVehicleRepo(
         vehicleSource: VehicleSource,
-        remoteMapper: VehicleRemoteMapper,
         inMemoryModel: InMemoryModel,
         retrofit: Retrofit
     ): VehicleRepo =
-        VehicleDataRepo(vehicleSource, remoteMapper, inMemoryModel, retrofit)
+        VehicleDataRepo(vehicleSource, inMemoryModel,  retrofit.create(VehicleApi::class.java))
 
     @Provides
     @ActivityRetainedScoped

@@ -1,11 +1,8 @@
 package com.d9tilov.android.tiertestapp.vehicle.data.remote.entity
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class VehicleResponse(
-
-    @SerializedName("data")
-    @Expose
+    @field:Json(name = "data")
     val data: VehicleResponseData
 )
